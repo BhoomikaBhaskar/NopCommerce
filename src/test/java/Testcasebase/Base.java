@@ -1,5 +1,6 @@
 package Testcasebase;
 
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -21,7 +22,7 @@ public class Base{
 
 
 		
-        public void loadPropertiesfile() {
+        public Base() {
 			
 			
 //			String Filepathfordata = "\\src\\main\\java\\nopcommerce\\config\\testData.properties";
@@ -34,6 +35,15 @@ public class Base{
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
+			
+			File config = new File(System.getProperty("user.dir")+"\\src\\main\\java\\nopcommerce\\config\\config.properties");
+			try {
+				FileInputStream inputFile = new FileInputStream(config);
+				Email.load(inputFile);
+			}catch(Throwable e){
+				System.out.println("Reading file failed");
+			}
+			
 			}
 		
 	
@@ -85,7 +95,9 @@ public class Base{
 
 		        // Save the properties to the output stream
 		        Email.store(output, "Email updated in properties file successfully");
+		        
 		        output.close();
+		        
 		    } catch (IOException e) {
 		        e.printStackTrace();
 		        System.out.println("Failed to update email");

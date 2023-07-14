@@ -28,20 +28,20 @@ public class Search extends Base {
 	public void verifySearchWithValidProduct() {
 		 
 		 
-	 driver.findElement(By.id("small-searchterms")).sendKeys("laptop");
-	 driver.findElement(By.xpath("//*[@id=\"small-search-box-form\"]/button")).click();
+	 driver.findElement(By.id(LocatorsPage.SearchBox)).sendKeys("laptop");
+	 driver.findElement(By.xpath(LocatorsPage.SearchClick)).click();
 	 
-	 Assert.assertTrue(driver.findElement(By.linkText("Asus N551JK-XO076H Laptop")).isDisplayed());
-	 Assert.assertTrue(driver.findElement(By.linkText("Lenovo Thinkpad X1 Carbon Laptop")).isDisplayed(),"Valid product is not displayed");
+	 Assert.assertTrue(driver.findElement(By.linkText(LocatorsPage.AsusLaptop)).isDisplayed());
+	 Assert.assertTrue(driver.findElement(By.linkText(LocatorsPage.LenovoLaptop)).isDisplayed(),"Valid product is not displayed");
 	 
 		
 	}
 	@Test(priority=2)
 	public void VerifySearchWithInvalidProduct(){
 	
-		driver.findElement(By.id("small-searchterms")).sendKeys("Amazon");
-		driver.findElement(By.xpath("//*[@id=\"small-search-box-form\"]/button")).click();
-		String ActualText = driver.findElement(By.xpath("//div[@class='no-result']")).getText();
+		driver.findElement(By.id(LocatorsPage.SearchBox)).sendKeys("Amazon");
+		driver.findElement(By.xpath(LocatorsPage.SearchClick)).click();
+		String ActualText = driver.findElement(By.xpath(LocatorsPage.NoResultOnInvalidSearch)).getText();
 		
 		Assert.assertEquals(ActualText,"No products were found that matched your criteria."," message not displayed");
 		

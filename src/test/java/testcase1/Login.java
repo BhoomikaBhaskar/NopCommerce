@@ -1,8 +1,7 @@
 package testcase1;
 
-
-
 import java.util.Properties;
+
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,17 +18,15 @@ import Testcasebase.Base;
 
 public class Login extends Base{
 	
-	
-	
-	
-	
-	
-	
+	public Login() {
+		super();
+	}
+
 	@BeforeMethod
 	public void setup() {
 		
 	
-		loadPropertiesfile();
+		
 		driver = InitialseBrowserandopenApp(Prop.getProperty("browser"));
 		driver.get(Prop.getProperty("uRL"));
 		driver.findElement(By.linkText("Log in")).click();
@@ -40,32 +37,24 @@ public class Login extends Base{
 	public void tearDown() {
 		driver.quit();
 	}
-	
-	
-	
-	
-	
-		
-		
-	
+
 	@Test(priority=2)
 	public void Loginwithvalidcredentials() {
 		
-		
-	
-		driver.findElement(By.id("Email")).sendKeys(Email.getProperty("newUserEmailAddress"));
-		driver.findElement(By.id("Password")).sendKeys("123456789");
-		driver.findElement(By.xpath("/html/body/div[6]/div[3]/div/div/div/div[2]/div[1]/div[2]/form/div[3]/button")).click();
+		driver.findElement(By.id(LocatorsPage.NewEmail)).sendKeys(Email.getProperty("newUserEmailAddress"));
+		driver.findElement(By.id(LocatorsPage.Password)).sendKeys("123456789");
+		driver.findElement(By.xpath(LocatorsPage.Login)).click();
 		
 		
 	}
-	@Test
+	@Test(priority=1)
 	public void Loginwithonlyinvalidcredentials() {
 	
-		driver.findElement(By.id("Email")).sendKeys("111@mailinator.com");
-		driver.findElement(By.name("Password")).sendKeys("123456");
-		driver.findElement(By.xpath("/html/body/div[6]/div[3]/div/div/div/div[2]/div[1]/div[2]/form/div[3]/button")).click();
-		String invalid = driver.findElement(By.xpath("//div[@class='message-error validation-summary-errors']")).getText();
+		driver.findElement(By.id(LocatorsPage.NewEmail)).sendKeys("111@mailinator.com");
+		driver.findElement(By.name(LocatorsPage.Password)).sendKeys("123456");
+		driver.findElement(By.xpath(LocatorsPage.Login)).click();
+		String invalid = driver.findElement(By.xpath(LocatorsPage.UnSuccessfulLoginMessage)).getText();
+		
 		Assert.assertEquals(invalid,"Login was unsuccessful. Please correct the errors and try again.\r\n"
 				+ "No customer account found","passed successfully with invalid credentials");
 		
